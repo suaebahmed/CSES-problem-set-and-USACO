@@ -19,29 +19,13 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-const ll mx=1e5;
-int n;
+#define ar array
+const ll mx=1e3+2;
+int n,ans=0;
 
 void solve()
 {
-    cin>>n;
-    set<int> st;
-    int ans=0;
-    For(i,n)
-    {
-        int x; cin>>x;
-        if(st.find(x)==st.end()) st.insert(x);
-        else
-        {
-            int y=st.size();
-            ans=max(ans,y);
-            st.clear();
-            st.insert(x);
-        }
-        int y=st.size();
-        ans=max(ans,y);
-    }
-    cout<<ans<<endl;
+
 }
 
 int main(){

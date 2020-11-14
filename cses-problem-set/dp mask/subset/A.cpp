@@ -1,9 +1,3 @@
-/*
-ID: suaebah1
-TASK: ride
-LANG: C++
-*/
-/* LANG can be C++11 or C++14 for those more recent releases */
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -29,21 +23,39 @@ typedef long long ll;
 const ll mx=1e3+2;
 int n,ans=0;
 
-void solve()
+void add(int &subset,int x)
 {
-    cin>>n;
-    //if(n%400==0 || (n%100!=0 && n%4==0)) cout<<"leap year\n";
-    //else cout<<"No\n";
-    int last_y=1900+n-1;
-    int leap_y=(n-1)/4;
-    cout<<n*365+leap_y<<endl;
-
+    subset=subset^(1<<(x-1));
+}
+void display(int subset)
+{
+    for(int i=0; i<=15; i++)
+    {
+        if(subset&(1<<i)) cout<<i+1<<" ";
+    }
+}
+void remove(int &subset,int x)
+{
+    subset=subset^(1<<(x-1));
 }
 
-int main() {
+void solve()
+{
+    n=15; /// universal set
+    display(n);
+
+    add(n,5);
+    add(n,7);
+
+    remove(n,4);
+    remove(n,2);
+
+    cout<<endl;
+    display(n);
+}
+
+int main(){
     optimize();
-    freopen("test.in","r",stdin);
-    freopen("test.out","w",stdout);
     int T=1;
     //cin>>T;
     while(T--)

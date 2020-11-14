@@ -1,9 +1,3 @@
-/*
-ID: suaebah1
-TASK: ride
-LANG: C++
-*/
-/* LANG can be C++11 or C++14 for those more recent releases */
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -17,7 +11,7 @@ using namespace std;
 #define sz(s) (s).size()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
-#define vi vector<int>
+#define vi vector<int
 #define vl vector<ll>
 #define pb push_back
 #define deb(x) cout<<"For debug : "<<x<<endl;
@@ -25,25 +19,40 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
 const ll mx=1e3+2;
-int n,ans=0;
+int n,ans=1e9+1;
 
 void solve()
 {
-    cin>>n;
-    //if(n%400==0 || (n%100!=0 && n%4==0)) cout<<"leap year\n";
-    //else cout<<"No\n";
-    int last_y=1900+n-1;
-    int leap_y=(n-1)/4;
-    cout<<n*365+leap_y<<endl;
+   cin>>n;
+   vector<int> v(n);
+   ll sum=0;
+   for(int i=0; i<n; i++)
+   {
+       cin>>v[i];
+       sum+=v[i];
+   }
+   int num_of_sub_seq=(1<<n)-1;
+   ans=min((ll)ans,sum); // empty sub_sequence
 
+   for(int i=1; i<num_of_sub_seq; i++)
+   {
+       int j=0,tmp=i;
+       ll sub_seq_sum=0;
+       while(tmp)
+       {
+           if(tmp&1) sub_seq_sum+=v[j];
+           j++;
+           tmp>>=1;
+       }
+       ll G2=sum-sub_seq_sum;
+       ans=min((ll)ans,abs(G2-sub_seq_sum));
+   }
+   cout<<ans<<endl;
 }
 
-int main() {
+int main(){
     optimize();
-    freopen("test.in","r",stdin);
-    freopen("test.out","w",stdout);
     int T=1;
     //cin>>T;
     while(T--)

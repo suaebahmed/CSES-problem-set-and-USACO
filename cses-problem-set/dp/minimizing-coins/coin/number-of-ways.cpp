@@ -1,9 +1,3 @@
-/*
-ID: suaebah1
-TASK: ride
-LANG: C++
-*/
-/* LANG can be C++11 or C++14 for those more recent releases */
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -13,7 +7,7 @@ using namespace std;
 #define rall(v) (v).rbegin(), (v).rend()
 #define ff first
 #define ss second
-#define m_p make_pair
+#define mp make_pair
 #define sz(s) (s).size()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
@@ -25,30 +19,42 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
-const ll mx=1e3+2;
-int n,ans=0;
+const ll mx=-1e18;
 
 void solve()
 {
-    cin>>n;
-    //if(n%400==0 || (n%100!=0 && n%4==0)) cout<<"leap year\n";
-    //else cout<<"No\n";
-    int last_y=1900+n-1;
-    int leap_y=(n-1)/4;
-    cout<<n*365+leap_y<<endl;
+    int n,x; cin>>n>>x;
+    vector<int> c(n);
+    scanArr(c);
+    int dp[n][x+1]={0};
 
+    for(int j=0; j<=x; j++)
+    {
+        if(j%c[0]==0) dp[0][j]=1;
+        else dp[0][j]=0;
+    }
+
+    for(int i=1; i<n; i++)
+    {
+        for(int j=0; j<=x; j++)
+        {
+            if(j==0) dp[i][j]=1;
+            else if(c[i]>j) dp[i][j]=dp[i-1][j];
+            else dp[i][j]=dp[i-1][j]+dp[i][j-c[i]];
+        }
+    }
+
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=x; j++) cout<<dp[i][j]<<" ";
+        cout<<endl;
+    }
+
+    cout<<dp[n-1][x]<<endl;
 }
 
-int main() {
+int main(){
     optimize();
-    freopen("test.in","r",stdin);
-    freopen("test.out","w",stdout);
-    int T=1;
-    //cin>>T;
-    while(T--)
-    {
-        solve();
-    }
+    solve();
     return 0;
 }

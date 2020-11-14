@@ -1,2 +1,1 @@
-## CSES problem set and USACO training
-# CSES-problem-set-and-USACO
+# CSES problem set and USACO training

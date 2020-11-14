@@ -1,9 +1,3 @@
-/*
-ID: suaebah1
-TASK: ride
-LANG: C++
-*/
-/* LANG can be C++11 or C++14 for those more recent releases */
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -25,25 +19,35 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
 const ll mx=1e3+2;
-int n,ans=0;
+int n,ans=1;
+set<string> st;
+
+void permutation(string s,int l,int r)
+{
+    if(l==r) st.insert(s);
+    else
+    {
+        for(int i=l; i<=r; i++)
+        {
+            swap(s[i],s[l]);
+            permutation(s,l+1,r);
+            swap(s[i],s[l]);
+        }
+    }
+}
 
 void solve()
 {
-    cin>>n;
-    //if(n%400==0 || (n%100!=0 && n%4==0)) cout<<"leap year\n";
-    //else cout<<"No\n";
-    int last_y=1900+n-1;
-    int leap_y=(n-1)/4;
-    cout<<n*365+leap_y<<endl;
-
+    string s; cin>>s;
+    n=sz(s);
+    permutation(s,0,n-1);
+    cout<<st.size()<<endl;
+    for(auto x: st) cout<<x<<endl;
 }
 
-int main() {
+int main(){
     optimize();
-    freopen("test.in","r",stdin);
-    freopen("test.out","w",stdout);
     int T=1;
     //cin>>T;
     while(T--)

@@ -1,9 +1,3 @@
-/*
-ID: suaebah1
-TASK: ride
-LANG: C++
-*/
-/* LANG can be C++11 or C++14 for those more recent releases */
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -31,19 +25,33 @@ int n,ans=0;
 
 void solve()
 {
-    cin>>n;
-    //if(n%400==0 || (n%100!=0 && n%4==0)) cout<<"leap year\n";
-    //else cout<<"No\n";
-    int last_y=1900+n-1;
-    int leap_y=(n-1)/4;
-    cout<<n*365+leap_y<<endl;
-
+   int n,x;
+   cin>>n>>x;
+   vector<array<int,2>> v(n);
+   for(int i=0; i<n; i++)
+   {
+        cin>>v[i][0];
+        v[i][1]=i+1;
+   }
+   sort(all(v));
+   for(int i=0; i<n; i++)
+   {
+       ll x2=x-v[i][0];
+       for(int j=i+1,k=n-1; j<n; j++)
+       {
+           while(j<k&&v[j][0]+v[k][0]>x2) k--;
+           if(v[j][0]+v[k][0]==x2&&j!=k)
+           {
+               cout<<v[i][1]<<" "<<v[j][1]<<" "<<v[k][1]<<endl;
+               return;
+           }
+       }
+   }
+   cout<<"IMPOSSIBLE"<<endl;
 }
 
-int main() {
+int main(){
     optimize();
-    freopen("test.in","r",stdin);
-    freopen("test.out","w",stdout);
     int T=1;
     //cin>>T;
     while(T--)
