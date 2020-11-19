@@ -7,7 +7,7 @@ using namespace std;
 #define rall(v) (v).rbegin(), (v).rend()
 #define ff first
 #define ss second
-#define m_p make_pair
+#define mp make_pair
 #define sz(s) (s).size()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
@@ -19,25 +19,29 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
-const ll mx=1e3+2;
-int n,ans=0;
+const int mx=2e5;
+int n;
 
 void solve()
 {
-    n=5;
-    n=~n;
-    cout<<n<<endl;
-    n=1;
-    n=0;
-    if(n) cout<<"True empty"<<endl;
-    if(~n) cout<<"True ~"<<endl;
-    if(!n) cout<<"True !"<<endl;
+    cin>>n;
+    vector<int> a(n);
+    int nl[n+5]={};
+    for(int i=0; i<n; i++)
+    {
+        cin>>a[i];
+        nl[i]=i-1;
+        while(nl[i]>=0&&a[nl[i]]>=a[i])
+        {
+            nl[i]=nl[nl[i]];
+        }
+        cout<<nl[i]+1<<" ";
+    }
 }
 
 int main(){
     optimize();
-    int T=1;
+    ll T=1;
     //cin>>T;
     while(T--)
     {

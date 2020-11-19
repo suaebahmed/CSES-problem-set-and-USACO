@@ -25,25 +25,28 @@ int n,ans=0;
 
 void solve()
 {
-    string x,y;
-    cin>>x>>y;
-    int n=sz(x),m=sz(y);
-    vector<vi> dp(n+1,vi(m+1,0));
+   string s("babcbab");
+   n=sz(s);
+   vector<vi> dp(n,vi(n,0));
 
-    for(int i=0; i<=n; i++)
-    {
-        for(int j=0; j<=m; j++)
-        {
-            if(j==0) dp[i][j]=i;
-            else if(i==0) dp[i][j]=j;
+   for(int i=0; i<n; i++) dp[i][i]=1;
+   for(int col=2; col<=n; col++)
+   {
+       for(int i=0; i<n-col+1; i++)
+       {
+           int j=i+col-1;
+           if(s[i]==s[j] && col==2) dp[i][j]=2;
+           else if(s[i]==s[j]) dp[i][j]=dp[i+1][j-1]+2;
+           else dp[i][j]=max(dp[i][j-1],dp[i+1][j]);
+       }
+   }
 
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1];
-            else dp[i][j]=1+min(dp[i-1][j],    /// insert
-                            min(dp[i][j-1],    /// remove
-                              dp[i-1][j-1]));  /// replace
-        }
-    }
-    cout<<dp[n][m];
+   for(auto x: dp)
+   {
+       for(auto y: x) cout<<y<<' ';
+       cout<<endl;
+   }
+   cout<<dp[0][n-1]<<endl;
 }
 
 int main(){

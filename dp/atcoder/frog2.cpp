@@ -2,12 +2,13 @@
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define For(i,n) for(ll i=0; i<int(n); ++i)
+#define printArr(v) for(auto x: v) cout<<x<<" ";
 #define scanArr(v) for (auto &it : v) cin >> it;
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
 #define ff first
 #define ss second
-#define m_p make_pair
+#define mp make_pair
 #define sz(s) (s).size()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
@@ -19,31 +20,26 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
-const ll mx=1e3+2;
-int n,ans=0;
+const ll MX=1e18;
+int n;
 
 void solve()
 {
-    string x,y;
-    cin>>x>>y;
-    int n=sz(x),m=sz(y);
-    vector<vi> dp(n+1,vi(m+1,0));
-
-    for(int i=0; i<=n; i++)
+    int n,k;
+    cin>>n>>k;
+    vector<ll> v(n);
+    scanArr(v);
+    vector<ll> dp(n,MX);
+    dp[0]=0;
+    for(int i=0; i<n; i++)
     {
-        for(int j=0; j<=m; j++)
+        for(int j=i+1; j<=i+k; j++)
         {
-            if(j==0) dp[i][j]=i;
-            else if(i==0) dp[i][j]=j;
-
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1];
-            else dp[i][j]=1+min(dp[i-1][j],    /// insert
-                            min(dp[i][j-1],    /// remove
-                              dp[i-1][j-1]));  /// replace
+            if(j<n)
+            dp[j]=min(dp[j],dp[i]+abs(v[i]-v[j]));
         }
     }
-    cout<<dp[n][m];
+    cout<<dp[n-1];
 }
 
 int main(){

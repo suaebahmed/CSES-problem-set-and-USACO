@@ -25,25 +25,22 @@ int n,ans=0;
 
 void solve()
 {
-    string x,y;
-    cin>>x>>y;
-    int n=sz(x),m=sz(y);
+    string s,t;
+    cin>>s>>t;
+    n=sz(s);
+    int m=sz(t);
     vector<vi> dp(n+1,vi(m+1,0));
-
-    for(int i=0; i<=n; i++)
+    //first row and column cells are zeros
+    for(int i=1; i<=n; i++)
     {
-        for(int j=0; j<=m; j++)
+        for(int j=1; j<=m; j++)
         {
-            if(j==0) dp[i][j]=i;
-            else if(i==0) dp[i][j]=j;
-
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1];
-            else dp[i][j]=1+min(dp[i-1][j],    /// insert
-                            min(dp[i][j-1],    /// remove
-                              dp[i-1][j-1]));  /// replace
+            if(s[i-1]==t[j-1]) dp[i][j]=dp[i-1][j-1]+1;
+            else dp[i][j]=max(dp[i][j-1],dp[i-1][j]);
         }
     }
     cout<<dp[n][m];
+
 }
 
 int main(){

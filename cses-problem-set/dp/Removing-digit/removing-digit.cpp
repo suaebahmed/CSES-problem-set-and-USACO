@@ -23,27 +23,33 @@ typedef long long ll;
 const ll mx=1e3+2;
 int n,ans=0;
 
-void solve()
+int lcs(int n,int m,string x,string y)
 {
-    string x,y;
-    cin>>x>>y;
-    int n=sz(x),m=sz(y);
     vector<vi> dp(n+1,vi(m+1,0));
-
-    for(int i=0; i<=n; i++)
+    for(int i=0; i<n; i++)
     {
-        for(int j=0; j<=m; j++)
+        for(int j=0; j<m; j++)
         {
-            if(j==0) dp[i][j]=i;
-            else if(i==0) dp[i][j]=j;
-
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1];
-            else dp[i][j]=1+min(dp[i-1][j],    /// insert
-                            min(dp[i][j-1],    /// remove
-                              dp[i-1][j-1]));  /// replace
+            if(i==0 || j==0) dp[i][j]=0;
+            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
+            else dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
         }
     }
-    cout<<dp[n][m];
+    for(auto v: dp)
+    {
+        for(auto x: v) cout<<x<<" ";
+        cout<<endl;
+    }
+
+    return (min(n,m)-dp[n][m]);
+}
+
+void solve()
+{
+    string s,t;
+    cin>>s>>t;
+    if(sz(s)>sz(t)) swap(s,t);
+    cout<<lcs(sz(s),sz(t),s,t);
 }
 
 int main(){

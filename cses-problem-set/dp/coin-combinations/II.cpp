@@ -2,6 +2,7 @@
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define For(i,n) for(ll i=0; i<int(n); ++i)
+#define printArr(v) for(auto x: v) cout<<x<<" ";
 #define scanArr(v) for (auto &it : v) cin >> it;
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
@@ -19,15 +20,25 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
-const ll mx=1e3+2;
-int n,ans=0;
+const ll MX=1e18;
 
 void solve()
 {
-    string s,t;
-    cin>>s>>t;
+    ll n,x; cin>>n>>x;
+    vector<ll> coins(n);
+    scanArr(coins);
+    vector<ll> dp(x+1,0);
 
+    dp[0]=1;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=x; j++)
+        {
+            if(coins[i]<=j)
+            dp[j]=(dp[j]+dp[j-coins[i]])%mod;
+        }
+    }
+    cout<<dp[x]<<endl;
 }
 
 int main(){
