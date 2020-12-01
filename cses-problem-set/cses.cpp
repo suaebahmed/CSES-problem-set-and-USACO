@@ -20,11 +20,12 @@ typedef long long ll;
 #define ld long double
 #define mod 1000000007
 #define ar array
-const ll mx=1e3+2;
+const ll MXN=1e3+2;
 int n,ans=0;
 
 void solve()
 {
+    cin>>n;
 
 }
 

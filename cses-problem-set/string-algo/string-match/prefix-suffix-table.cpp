@@ -20,28 +20,54 @@ typedef long long ll;
 #define ld long double
 #define mod 1000000007
 #define ar array
-const ll mx=1e3+2;
+const ll MXN=1e3+2;
 int n,ans=0;
 
-int lcs(int n,int m,string x,string y)
+void printArr(vi v)
 {
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
+    cout<<"[";
+    for(auto x: v) cout<<x<<", ";
+    cout<<"]";
+}
+
+void computeLPSArray(string s,int n,vi &v)
+{
+    int i=0,j=1;
+    while(j<n)
     {
-        for(int j=0; j<=m; j++)
+        if(s[i]==s[j])
         {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
+            i++;
+            v[j]=i;
+            j++;
+        }
+        else
+        {
+            if(i>0) i=v[i-1];
+            else v[j]=0,j++;
         }
     }
-    return dp[n][m];
 }
+
+/**
+        AACAAAC
+<-prefix->  <-suffix->
+AACAAA          ACAAAC
+AACAA            CAAAC
+AACA              AAAC
+AAC       --       AAC
+AA                  AC
+A                    C
+**/
 
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    string s;
+    cin>>s;
+    int n=sz(s);
+    vector<int> lps(n);
+    computeLPSArray(s,n,lps);
+    printArr(lps);
 }
 
 int main(){

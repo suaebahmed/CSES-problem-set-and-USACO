@@ -21,27 +21,39 @@ typedef long long ll;
 #define mod 1000000007
 #define ar array
 const ll mx=1e3+2;
-int n,ans=0;
+int ans=0;
 
-int lcs(int n,int m,string x,string y)
+bool cmp(pii a,pii b)
 {
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
-    {
-        for(int j=0; j<=m; j++)
-        {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
-        }
-    }
-    return dp[n][m];
+    double r1,r2;
+    r1=(double)a.ss/a.ff;
+    r2=(double)b.ss/b.ff;
+    return (r1>r2);
 }
-
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    int n,w; cin>>n>>w;
+    vector<pii> v(n);
+    for(int i=0; i<n; i++) cin>>v[i].ff>>v[i].ss;
+    sort(all(v),cmp);
+
+    cout<<endl;
+    for(int i=0; i<n; i++)
+    {
+        cout<<v[i].ff<<" "<<v[i].ss<<endl;
+    }
+    cout<<endl;
+
+    ll loadedW=0,finalValue=0;
+    for(int i=0; i<n; i++)
+    {
+        if(loadedW+v[i].ff <= w)
+        {
+            loadedW+=v[i].ff;
+            finalValue+=v[i].ss;
+        }
+    }
+    cout<<finalValue<<" "<<loadedW<<endl;
 }
 
 int main(){

@@ -23,25 +23,26 @@ typedef long long ll;
 const ll mx=1e3+2;
 int n,ans=0;
 
-int lcs(int n,int m,string x,string y)
-{
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
-    {
-        for(int j=0; j<=m; j++)
-        {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
-        }
-    }
-    return dp[n][m];
-}
-
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    /// this is a knapsack problem
+
+    int n,x; cin>>n>>x;
+    vector<vi> dp(n+1,vi(x+1));
+    vector<int> pc(n+1),pg(n+1);
+    for(int i=1; i<=n; i++) cin>>pc[i];
+    for(int i=1; i<=n; i++) cin>>pg[i];
+
+    for(int i=0; i<=n; i++)
+    {
+        for(int s=0; s<=x; s++)
+        {
+            if(i==0 || s==0) dp[i][s]=0;
+            else if(pc[i]<=s) dp[i][s]=max(dp[i-1][s],dp[i-1][s-pc[i]]+pg[i]);
+            else dp[i][s]=dp[i-1][s];
+        }
+    }
+    cout<<dp[n][x];
 }
 
 int main(){

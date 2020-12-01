@@ -20,28 +20,48 @@ typedef long long ll;
 #define ld long double
 #define mod 1000000007
 #define ar array
-const ll mx=1e3+2;
+const ll MXN=1e3+2;
 int n,ans=0;
 
-int lcs(int n,int m,string x,string y)
+void computeLPSArray(string s,int n,vi &v)
 {
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
+    int i=0,j=1;
+    while(j<n)
     {
-        for(int j=0; j<=m; j++)
+        if(s[i]==s[j])
         {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
+            i++;
+            v[j]=i;
+            j++;
+        }
+        else
+        {
+            if(i>0) i=v[i-1];//i--;
+            else v[j]=0,j++;
         }
     }
-    return dp[n][m];
 }
 
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    string s,p;
+    cin>>s>>p;
+    int n=sz(s),m=sz(p);
+    vector<int> lps(m,0);
+    computeLPSArray(p,m,lps);
+    int i=0,j=0,cnt=0;
+    while(i<n)
+    {
+        if(s[i]==p[j]) i++,j++;
+        else
+        {
+            if(j>0) j=lps[j-1];
+            else i++;
+        }
+        //count
+        if(j==m) cnt++,j=lps[j-1];
+    }
+    cout<<cnt;
 }
 
 int main(){

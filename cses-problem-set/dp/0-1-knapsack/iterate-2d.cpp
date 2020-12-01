@@ -23,31 +23,34 @@ const ll mx=-1e18;
 
 void solve()
 {
-    int n,x; cin>>n>>x;
-    vector<int> c(n);
-    scanArr(c);
-    int dp[n][x+1]={0};
+   ll n,m; cin>>n>>m;
+   vector<ll> v(n+1,0);
+   vector<ll> wt(n+1,0);
+   for(int i=1; i<=n; i++)
+   {
+       cin>>wt[i]>>v[i];
+   }
+   vector<vl> dp(n+1,vl(m+1,0));
 
-    for(int j=0; j<=x; j++)
-    {
-        if(j%c[0]==0) dp[0][j]=1;
-        else dp[0][j]=0;
-    }
-
-    for(int i=1; i<n; i++)
-    {
-        for(int j=0; j<=x; j++)
-        {
-            if(j==0) dp[i][j]=1;
-            else if(c[i]>j) dp[i][j]=dp[i-1][j];
-            else dp[i][j]=dp[i-1][j]+dp[i][j-c[i]];
-        }
-    }
-    cout<<dp[n-1][x]<<endl;
+   for(int i=0; i<=n; i++)
+   {
+       for(int w=0; w<=m; w++)
+       {
+            if(i==0 || w==0) dp[i][w]=0;
+            else if(wt[i]<=w) dp[i][w]=max(v[i]+dp[i-1][w-wt[i]], dp[i-1][w]);
+            else dp[i][w]=dp[i-1][w];
+       }
+   }
+   cout<<dp[n][m];
 }
 
 int main(){
     optimize();
-    solve();
+    int T=1;
+    //cin>>T;
+    while(T--)
+    {
+        solve();
+    }
     return 0;
 }

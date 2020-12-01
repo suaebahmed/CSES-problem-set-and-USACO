@@ -25,7 +25,20 @@ int n;
 
 void solve()
 {
-
+    cin>>n;
+    vector<int> dp(3,0);
+    scanArr(dp);
+    for(int i=0; i<n-1; i++)
+    {
+        int a,b,c,x,y;
+        cin>>a>>b>>c;
+        x=max(dp[1]+a,dp[2]+a);
+        y=max(dp[0]+b,dp[2]+b);
+        dp[2]=max(dp[0]+c,dp[1]+c);
+        dp[0]=x;
+        dp[1]=y;
+    }
+    cout<<*max_element(all(dp))<<endl;
 }
 
 int main(){

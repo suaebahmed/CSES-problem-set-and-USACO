@@ -23,25 +23,9 @@ typedef long long ll;
 const ll mx=1e3+2;
 int n,ans=0;
 
-int lcs(int n,int m,string x,string y)
-{
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
-    {
-        for(int j=0; j<=m; j++)
-        {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
-        }
-    }
-    return dp[n][m];
-}
-
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+
 }
 
 int main(){

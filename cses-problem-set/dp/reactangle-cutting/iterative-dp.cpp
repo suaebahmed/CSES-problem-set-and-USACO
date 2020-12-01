@@ -20,28 +20,28 @@ typedef long long ll;
 #define ld long double
 #define mod 1000000007
 #define ar array
-const ll mx=1e3+2;
+const ll MXN=1e3+2;
 int n,ans=0;
-
-int lcs(int n,int m,string x,string y)
-{
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
-    {
-        for(int j=0; j<=m; j++)
-        {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
-        }
-    }
-    return dp[n][m];
-}
 
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    int a,b;
+    cin>>a>>b;
+
+    vector<vi> dp(a+1,vi(b+1,0));
+    for(int i=1; i<=a; i++)
+    {
+        for(int j=1; j<=b; j++)
+        {
+            if(i==j) dp[i][j]=0;
+            else if(i==1) dp[i][j]=j-1;
+            else if(j==1) dp[i][j]=i-1;
+            else if(i*i==j || j*j==i) dp[i][j]=1;
+            else if(i>=j) dp[i][j]=dp[i-j][j]+1;
+            else dp[i][j]=dp[i][j-i]+1;
+        }
+    }
+    cout<<dp[a][b];
 }
 
 int main(){

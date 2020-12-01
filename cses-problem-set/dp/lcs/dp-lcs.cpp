@@ -40,7 +40,6 @@ void solve()
         }
     }
     cout<<dp[n][m];
-
 }
 
 int main(){

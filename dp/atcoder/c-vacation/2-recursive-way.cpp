@@ -20,12 +20,38 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-const ll MX=1e18;
+const ll MX=1e5+5;
 int n;
+ll arr[MX][3];
+ll dp[MX][4];
 
-void solve()
+ll solve(int i,int prev)
 {
-
+    if(i==n) return 0;
+    if(dp[i][prev]!=-1) return dp[i][prev];
+    ll ans=INT_MIN;
+    if(prev==0)
+    {
+        ans=max(ans,arr[i][1]+solve(i+1,1));
+        ans=max(ans,arr[i][2]+solve(i+1,2));
+    }
+    else if(prev==1)
+    {
+        ans=max(ans,arr[i][0]+solve(i+1,0));
+        ans=max(ans,arr[i][2]+solve(i+1,2)); //90+0=90
+    }
+    else if(prev==2)
+    {
+        ans=max(ans,arr[i][0]+solve(i+1,0));
+        ans=max(ans,arr[i][1]+solve(i+1,1));//50+90=140
+    }
+    else
+    {
+        ans=max(ans,arr[i][0]+solve(i+1,0));
+        ans=max(ans,arr[i][1]+solve(i+1,1));
+        ans=max(ans,arr[i][2]+solve(i+1,2));//70+140=210
+    }
+    return dp[i][prev]=ans;
 }
 
 int main(){
@@ -34,7 +60,11 @@ int main(){
     //cin>>T;
     while(T--)
     {
-        solve();
+        //0=a,1=b,2=c
+        memset(dp,-1,sizeof(dp));
+        cin>>n;
+        for(int i=0; i<n; i++) for(int j=0; j<3; j++) cin>>arr[i][j];
+        cout<<solve(0,3);
     }
     return 0;
 }

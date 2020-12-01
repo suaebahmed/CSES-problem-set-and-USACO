@@ -7,6 +7,7 @@ using namespace std;
 #define rall(v) (v).rbegin(), (v).rend()
 #define ff first
 #define ss second
+#define mp make_pair
 #define m_p make_pair
 #define sz(s) (s).size()
 #define pii pair<int, int>
@@ -15,38 +16,38 @@ using namespace std;
 #define vl vector<ll>
 #define pb push_back
 #define deb(x) cout<<"For debug : "<<x<<endl;
-#define endl "\n"
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-#define ar array
-const ll mx=1e3+2;
-int n,ans=0;
-
-int lcs(int n,int m,string x,string y)
-{
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
-    {
-        for(int j=0; j<=m; j++)
-        {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
-        }
-    }
-    return dp[n][m];
-}
+const int MXN=2e4+5;
 
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    string s; cin>>s;
+    int n; n=sz(s);
+    vector<string> px,sx;
+    string tmp="";
+    for(int i=0; i<n-1; i++)
+    {
+        tmp+=s[i];
+        px.pb(tmp);
+    }
+    tmp.clear();
+    for(int i=n-1; i>0; i--)
+    {
+        tmp=s[i]+tmp;
+        sx.pb(tmp);
+    }
+    for(int i=0; i<(int)sz(px)&&i<(int)sz(sx); i++)
+    {
+        if(px[i]==sx[i]) cout<<px[i].length()<<" ";
+    }
+
 }
 
 int main(){
     optimize();
-    int T=1;
+    ll T=1;
     //cin>>T;
     while(T--)
     {

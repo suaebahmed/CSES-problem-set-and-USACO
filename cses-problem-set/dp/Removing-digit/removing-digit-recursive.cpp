@@ -20,28 +20,38 @@ typedef long long ll;
 #define ld long double
 #define mod 1000000007
 #define ar array
-const ll mx=1e3+2;
+const ll MXN=1e6+5;
 int n,ans=0;
-
-int lcs(int n,int m,string x,string y)
+int dp[MXN];
+/**
+ *    -- Alhamdullah --
+ *    author:  suaeb
+ *    created: 22.11.2020 00:11:00PM
+ *    -> this is my first own dp recursive solution
+**/
+int removingDigit(int n)
 {
-    vector<vi> dp(n+1,vi(m+1,0));
-    for(int i=0; i<=n; i++)
+    if(n==0) return 0;
+    else
     {
-        for(int j=0; j<=m; j++)
+        if(dp[n]!=-1) return dp[n];
+        int tmp=n,minStep=1e9;
+        while(tmp>0)
         {
-            if(i==0 || j==0) dp[i][j]=0;
-            else if(x[i-1]==y[j-1]) dp[i][j]=dp[i-1][j-1]+1;
-            else dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
+            int di=tmp%10;
+            tmp/=10;
+            if(di==0) continue;
+            minStep=min(minStep,1+removingDigit(n-di));
         }
+        return dp[n]=minStep;
     }
-    return dp[n][m];
 }
 
 void solve()
 {
-    string x("abcd"),y("abcd");
-    cout<<lcs(sz(x),sz(y),x,y);
+    cin>>n;
+    memset(dp,-1,sizeof(dp));
+    cout<<removingDigit(n);
 }
 
 int main(){

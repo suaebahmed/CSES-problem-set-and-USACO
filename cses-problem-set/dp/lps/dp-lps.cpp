@@ -25,7 +25,7 @@ int n,ans=0;
 
 void solve()
 {
-   string s("babcbab");
+   string s; cin>>s;
    n=sz(s);
    vector<vi> dp(n,vi(n,0));
 
@@ -39,12 +39,6 @@ void solve()
            else if(s[i]==s[j]) dp[i][j]=dp[i+1][j-1]+2;
            else dp[i][j]=max(dp[i][j-1],dp[i+1][j]);
        }
-   }
-
-   for(auto x: dp)
-   {
-       for(auto y: x) cout<<y<<' ';
-       cout<<endl;
    }
    cout<<dp[0][n-1]<<endl;
 }
