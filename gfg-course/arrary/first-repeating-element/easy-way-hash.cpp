@@ -19,31 +19,24 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-const ll mx=1e3+2;
-int n,ans=1;
-set<string> st;
-
-void permutation(string s,int l,int n)
-{
-    if(l==n) st.insert(s);
-    else
-    {
-        for(int i=l; i<n; i++)
-        {
-            swap(s[i],s[l]);
-            permutation(s,l+1,n);
-            swap(s[i],s[l]);
-        }
-    }
-}
+#define ar array
+const ll MXN=1e3+2;
+int n,ans=0;
 
 void solve()
 {
-    string s; cin>>s;
-    n=sz(s);
-    permutation(s,0,n);
-    cout<<st.size()<<endl;
-    for(auto x: st) cout<<x<<endl;
+    cin>>n;
+    int arr[n];
+    scanArr(arr);
+    map<int,int> mp;
+    for(int i=0; i<n; i++){
+        mp[arr[i]]++;
+    }
+    int ans=-1;
+    for(int i=n-1; i>=0; i--){
+        if(mp[arr[i]]>1) ans=i+1;
+    }
+    cout<<ans<<endl;
 }
 
 int main(){

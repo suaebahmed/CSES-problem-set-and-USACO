@@ -19,39 +19,45 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-const ll mx=1e3+2;
-int n,ans=1;
-set<string> st;
-
-void permutation(string s,int l,int n)
-{
-    if(l==n) st.insert(s);
-    else
-    {
-        for(int i=l; i<n; i++)
-        {
-            swap(s[i],s[l]);
-            permutation(s,l+1,n);
-            swap(s[i],s[l]);
-        }
-    }
-}
-
+#define ar array
+const ll MXN=1e10;
+/**
+3 2
+4 8 0 2 1 6
+2 2
+5 2 9 4
+*/
 void solve()
 {
-    string s; cin>>s;
-    n=sz(s);
-    permutation(s,0,n);
-    cout<<st.size()<<endl;
-    for(auto x: st) cout<<x<<endl;
+    int n1,m1; cin>>n1>>m1;
+    vector<vi> A(n1,vi(m1));
+    for(auto &v: A) for(auto &x: v) cin>>x;
+
+    int n2,m2; cin>>n2>>m2;
+    vector<vi> B(n2,vi(m2));
+    for(auto &v: B) for(auto &x: v) cin>>x;
+
+    if(m1!=n2) return; //not valid
+
+    for(int r=0; r<n1; r++){
+        for(int c=0; c<m2; c++){
+            int ans=0;
+            for(int j=0; j<m1; j++){
+                ans+=A[r][j]*B[j][c];
+            }
+            cout<<ans<<" ";
+        }
+        cout<<endl;
+    }
 }
 
 int main(){
     optimize();
-    int T=1;
-    //cin>>T;
-    while(T--)
+    int tt=1;
+    //cin>>tt;
+    for(int i=1; i<=tt; i++)
     {
+        //cout<<"Case #: "<<i<<endl;
         solve();
     }
     return 0;

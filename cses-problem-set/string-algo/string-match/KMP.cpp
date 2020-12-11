@@ -49,6 +49,7 @@ void solve()
     int n=sz(s),m=sz(p);
     vector<int> lps(m,0);
     computeLPSArray(p,m,lps);
+
     int i=0,j=0,cnt=0;
     while(i<n)
     {

@@ -23,10 +23,25 @@ typedef long long ll;
 const ll MXN=1e3+2;
 int n,ans=0;
 
+void permutation(int r,int n,string s)
+{
+    if(r==n)
+    {
+        cout<<s<<endl;
+        return;
+    }
+    for(int i=r; i<n; i++)
+    {
+        swap(s[i],s[r]);
+        permutation(r+1,n,s);
+        swap(s[i],s[r]);
+    }
+}
+
 void solve()
 {
-    cin>>n;
-
+    string s="abc";
+    permutation(0,sz(s),s);
 }
 
 int main(){
