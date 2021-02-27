@@ -23,9 +23,39 @@ typedef long long ll;
 const ll MXN=1e3+2;
 int n,ans=0;
 
+int first_occure_index(std::vector<int> v,int n,int x){
+    int l=0,r=n-1;
+    while(l<=r){
+        int mid=(l+r)/2;
+        if(v[mid]==x && (mid==0 || v[mid-1]!=x)) 
+        return mid;
+        if(v[mid]>=x) r=mid-1;
+        else l=mid+1;
+    }
+    return -1;
+}
+
+int last_occure_index(std::vector<int> v,int n,int x){
+    int l=0,r=n-1;
+    while(l<=r){
+        int mid=(l+r)/2;
+        if(v[mid]==x && (mid==n-1 || v[mid+1]!=x)) 
+        return mid;
+        if(v[mid]<=x) l=mid+1;
+        else r=mid-1;
+    }
+    return -1;
+}
+
+
 void solve()
 {
-    
+    int n,x; cin>>n>>x;
+    std::vector<int> v(n);
+    for(auto &x: v) cin>>x;
+    cout<<first_occure_index(v,n,x);
+    cout<<" "<<last_occure_index(v,n,x)<<endl;
+
 }
 
 int main(){

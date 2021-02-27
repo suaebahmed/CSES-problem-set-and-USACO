@@ -38,6 +38,7 @@ void solve()
         else v.pb(x);
     }
     cout<<sz(v)<<endl;
+    for(auto x: v) cout<<x<<" ";
 }
 
 int main(){

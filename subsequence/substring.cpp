@@ -1,14 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define For(i,n) for(ll i=0; i<int(n); ++i)
-#define printArr(v) for(auto x: v) cout<<x<<" ";
+#define Rep(i,n) for(ll i=0; i<int(n); ++i)
 #define scanArr(v) for (auto &it : v) cin >> it;
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
 #define ff first
 #define ss second
-#define mp make_pair
+#define m_p make_pair
 #define sz(s) (s).size()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
@@ -20,33 +19,30 @@ using namespace std;
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-const ll MX=1e18;
-int n;
+#define ar array
+const int MXN=56;
 
-void solve()
-{
-    cin>>n;
-    vector<ll> v(n);
-    scanArr(v);
-    vector<ll> dp(n,MX);
-    dp[0]=0;
-    for(int i=0; i<n; i++)
-    {
-        for(int j=i+1; j<=i+2; j++)
-        {
-            if(j<n)
-            dp[j]=min(dp[j],dp[i]+abs(v[i]-v[j]));
+void solve(){
+    string s="suaeb";
+    int n=5;
+    for(int i=0; i<n; i++){
+        string tmp="";
+        for(int j=i; j<=i; j++){
+            tmp+=s[j];
+            cout<<tmp<<'\n';
         }
     }
-    cout<<dp[n-1];
 }
 
 int main(){
     optimize();
-    int T=1;
-    //cin>>T;
-    while(T--)
-    {
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    #endif
+    int tt=1; //cin>>tt;
+    for(int i=1; i<=tt; i++){
+        // cout<<"Case "<<i<<": ";
         solve();
     }
     return 0;

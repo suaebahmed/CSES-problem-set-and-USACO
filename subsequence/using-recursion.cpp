@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define For(i,n) for(ll i=0; i<int(n); ++i)
+#define Rep(i,n) for(ll i=0; i<int(n); ++i)
 #define scanArr(v) for (auto &it : v) cin >> it;
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
@@ -20,20 +20,33 @@ typedef long long ll;
 #define ld long double
 #define mod 1000000007
 #define ar array
-const ll mx=1e3+2;
-int ans=0;
+const int MXN=56;
 
-void solve()
-{
+void printSubseq(string s,int n,int k=-1,string curr=""){
+    if(k==n) return;
+    if(!curr.empty()) cout<<curr<<'\n';
+    for(int i=k+1; i<n; i++){
+        curr+=s[i];
+        printSubseq(s,n,i,curr);
+        curr.erase(curr.size()-1);
+    }
+    return;
+}
 
+void solve(){
+    string s="abc";
+    printSubseq(s,3);
 }
 
 int main(){
     optimize();
-    int T=1;
-    //cin>>T;
-    while(T--)
-    {
+    // #ifndef ONLINE_JUDGE
+    // freopen("input.txt","r",stdin);
+    // freopen("output.txt","w",stdout);
+    // #endif
+    int tt=1; //cin>>tt;
+    for(int i=1; i<=tt; i++){
+        // cout<<"Case "<<i<<": ";
         solve();
     }
     return 0;

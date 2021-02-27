@@ -2,13 +2,10 @@
 using namespace std;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define For(i,n) for(ll i=0; i<int(n); ++i)
-#define printArr(v) for(auto x: v) cout<<x<<" ";
 #define scanArr(v) for (auto &it : v) cin >> it;
 #define all(v) (v).begin(), (v).end()
-#define rall(v) (v).rbegin(), (v).rend()
 #define ff first
 #define ss second
-#define mp make_pair
 #define sz(s) (s).size()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
@@ -16,39 +13,38 @@ using namespace std;
 #define vl vector<ll>
 #define pb push_back
 #define deb(x) cout<<"For debug : "<<x<<endl;
-#define endl "\n"
 typedef long long ll;
 #define ld long double
 #define mod 1000000007
-const ll MX=1e18;
-int n;
+const int mx=2e4+5;
+#define ONLINE_JUDGE 1
+//sue
+/*
+*/
 
 void solve()
 {
-    int n,k;
-    cin>>n>>k;
-    vector<ll> v(n);
-    scanArr(v);
-    vector<ll> dp(n,MX);
-    dp[0]=0;
-    for(int i=0; i<n; i++)
+    string s; cin>>s;
+    int n=sz(s);
+    int num_of_subsequence=(1<<n)-1;
+    cout<<"{}\n";
+    for(int i=1; i<=num_of_subsequence; i++)
     {
-        for(int j=i+1; j<=i+k; j++)
+        int tmp=i,j=0;
+        while(tmp>0)
         {
-            if(j<n)
-            dp[j]=min(dp[j],dp[i]+abs(v[i]-v[j]));
+            if(tmp&1) cout<<s[j];
+            j++;
+            tmp>>=1;
         }
+        cout<<"\n";
     }
-    cout<<dp[n-1];
 }
 
 int main(){
     optimize();
-    int T=1;
-    //cin>>T;
-    while(T--)
-    {
-        solve();
-    }
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    solve();
     return 0;
 }
